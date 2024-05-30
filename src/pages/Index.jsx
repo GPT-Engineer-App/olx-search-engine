@@ -45,8 +45,8 @@ const Index = () => {
             <option value="50">50 km</option>
             <option value="100">100 km</option>
           </Select>
-          <Button leftIcon={<FaSearch />} colorScheme="teal" onClick={handleSearch}>
-            Search
+          <Button size="lg" colorScheme="teal" onClick={handleSearch}>
+            Szukaj
           </Button>
         </HStack>
         <SimpleGrid columns={1} spacing={4} width="100%">
