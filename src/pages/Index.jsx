@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Input, Button, VStack, HStack, Select, Text, Box, SimpleGrid } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 
@@ -10,6 +10,21 @@ const mockData = [
 ];
 
 const Index = () => {
+  const [locations, setLocations] = useState([]);
+
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const response = await fetch("https://www.olx.pl/api/locations");
+        const data = await response.json();
+        setLocations(data.locations);
+      } catch (error) {
+        console.error("Error fetching locations:", error);
+      }
+    };
+
+    fetchLocations();
+  }, []);
   const [query, setQuery] = useState("");
   const [location, setLocation] = useState("");
   const [distance, setDistance] = useState("");
@@ -37,7 +52,13 @@ const Index = () => {
       <VStack spacing={4} width="100%">
         <HStack width="100%">
           <Input placeholder="Search for items" value={query} onChange={(e) => setQuery(e.target.value)} />
-          <Input placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)} />
+          <Select placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)}>
+            {locations.map((loc) => (
+              <option key={loc.id} value={loc.name}>
+                {loc.name}
+              </option>
+            ))}
+          </Select>
           <Select placeholder="Distance" value={distance} onChange={(e) => setDistance(e.target.value)}>
             <option value="5">5 km</option>
             <option value="10">10 km</option>
