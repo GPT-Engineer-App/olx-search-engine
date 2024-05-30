@@ -3,9 +3,9 @@ import { Container, Input, Button, VStack, HStack, Select, Text, Box, SimpleGrid
 import { FaSearch } from "react-icons/fa";
 
 const mockData = [
-  { id: 1, title: "Item 1", price: 100, location: "Warsaw" },
-  { id: 2, title: "Item 2", price: 200, location: "Krakow" },
-  { id: 3, title: "Item 3", price: 50, location: "Gdansk" },
+  { id: 1, title: "Item 1", price: 100, location: "Warsaw", url: "https://www.olx.pl/item1" },
+  { id: 2, title: "Item 2", price: 200, location: "Krakow", url: "https://www.olx.pl/item2" },
+  { id: 3, title: "Item 3", price: 50, location: "Gdansk", url: "https://www.olx.pl/item3" },
   // Add more mock items as needed
 ];
 
@@ -52,7 +52,11 @@ const Index = () => {
         <SimpleGrid columns={1} spacing={4} width="100%">
           {paginatedResults.map((item) => (
             <Box key={item.id} p={4} borderWidth="1px" borderRadius="lg">
-              <Text fontSize="xl">{item.title}</Text>
+              <Text fontSize="xl">
+                <a href={item.url} target="_blank" rel="noopener noreferrer">
+                  {item.title}
+                </a>
+              </Text>
               <Text>Price: {item.price} PLN</Text>
               <Text>Location: {item.location}</Text>
             </Box>
