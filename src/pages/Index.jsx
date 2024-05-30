@@ -49,19 +49,25 @@ const Index = () => {
             Szukaj
           </Button>
         </HStack>
-        <SimpleGrid columns={1} spacing={4} width="100%">
-          {paginatedResults.map((item) => (
-            <Box key={item.id} p={4} borderWidth="1px" borderRadius="lg">
-              <Text fontSize="xl">
-                <a href={item.url} target="_blank" rel="noopener noreferrer">
-                  {item.title}
-                </a>
-              </Text>
-              <Text>Price: {item.price} PLN</Text>
-              <Text>Location: {item.location}</Text>
-            </Box>
-          ))}
-        </SimpleGrid>
+        {results.length === 0 ? (
+          <Text fontSize="xl" color="red.500">
+            Nie znaleziono
+          </Text>
+        ) : (
+          <SimpleGrid columns={1} spacing={4} width="100%">
+            {paginatedResults.map((item) => (
+              <Box key={item.id} p={4} borderWidth="1px" borderRadius="lg">
+                <Text fontSize="xl">
+                  <a href={item.url} target="_blank" rel="noopener noreferrer">
+                    {item.title}
+                  </a>
+                </Text>
+                <Text>Price: {item.price} PLN</Text>
+                <Text>Location: {item.location}</Text>
+              </Box>
+            ))}
+          </SimpleGrid>
+        )}
         <HStack spacing={2}>
           {Array.from({ length: Math.ceil(results.length / itemsPerPage) }, (_, i) => (
             <Button key={i + 1} onClick={() => handlePageChange(i + 1)}>
